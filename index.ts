@@ -1,9 +1,10 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
-import { buildSchema } from "type-graphql";
+import { AuthChecker, buildSchema } from "type-graphql";
 import mongoose from 'mongoose';
 import "dotenv/config";
+import jwt, { secretType } from "express-jwt";
 
 import { AuthenticationResolver } from './resolvers';
  
@@ -12,17 +13,38 @@ mongoose.connect(`${process.env.MONGO_URI}`, {
   useUnifiedTopology: true,
 });
 
+const customAuthChecker: AuthChecker<any> = (
+  { context: { req }} ,
+  roles,
+) => {
+  return roles.some(role => role === req.user.status);
+};
+
+
+const path = '/graphql';
 
 const main = async () => {
   const schema = await buildSchema({
-    resolvers: [AuthenticationResolver]
+    resolvers: [AuthenticationResolver],
+    authChecker:customAuthChecker,
+    authMode: "null",
   });
 
-  const apolloServer = new ApolloServer({ schema });
+  const apolloServer = new ApolloServer({ schema, context: ({ req }) => ({ req })
+  });
 
   const app = Express();
 
-  apolloServer.applyMiddleware({ app });
+  app.use(
+    path,
+    jwt({
+      secret: process.env.SECRET as secretType,
+      credentialsRequired: false,
+      algorithms: ["HS256"]
+    }),
+  );
+
+  apolloServer.applyMiddleware({ app, path });
 
   app.listen(process.env.PORT || 4000, () => {
     console.log(`server started on http://localhost:${process.env.PORT || 4000}/graphql`);

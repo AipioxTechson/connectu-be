@@ -1,4 +1,4 @@
-import { Resolver, Query, Arg, Mutation } from "type-graphql";
+import { Resolver, Query, Arg, Mutation, Authorized } from "type-graphql";
 import { AuthenticationMsg } from '../models';
 import { User } from '../database';
 import bcrypt from 'bcrypt';
@@ -8,13 +8,32 @@ import { IUser } from "../database/schema";
 
 @Resolver()
 export class AuthenticationResolver {
+  @Authorized("user")
+  @Query(() => String, {nullable: true})
+  async me(){
+    return "Hello"
+  }
   @Query(()=> AuthenticationMsg)
   async login(@Arg("email") email: string, @Arg("password") password: string){
     const user = await User.findOne({ email });
-    const user2 = await User.create({email, password: await bcrypt.hash(password,10), groupChatsCreated: []});
+    if (!user){
+      return {
+        status: "NO_USER_FOUND"
+      }
+    }
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid || user.status === 'banned'){
+      return {
+        status: "INVALID"
+      }
+    }
     return {
       status: "OK",
-      jwtToken: "YOLO"
+      jwtToken: jsonwebtoken.sign(
+        {email, status: `${user.status}` },
+        `${process.env.SECRET}`,
+            { expiresIn: '1y' }
+          )
     }
   }
 
