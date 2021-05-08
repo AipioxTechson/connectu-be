@@ -17,6 +17,9 @@ const customAuthChecker: AuthChecker<any> = (
   { context: { req }} ,
   roles,
 ) => {
+  if (!req.user){
+    return false;
+  }
   return roles.some(role => role === req.user.status);
 };
 
