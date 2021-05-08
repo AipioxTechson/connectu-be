@@ -8,7 +8,7 @@ import { buildSchema, Query, Resolver } from "type-graphql";
 class StubResolver {
   @Query(()=> String)
   hello(){
-    return "Hello The Show!"
+    return "Hello!"
   }
 }
 const main = async () => {
