@@ -5,6 +5,6 @@ export class AuthenticationMsg {
   @Field()
   status: String;
 
-  @Field()
-  jwtToken: String;
+  @Field({nullable: true})
+  jwtToken?: String;
 }
