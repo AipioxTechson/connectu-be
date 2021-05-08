@@ -1,19 +1,14 @@
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
-import { buildSchema, Query, Resolver } from "type-graphql";
+import { buildSchema } from "type-graphql";
+
+import { AuthenticationResolver } from './resolvers';
  
 
-@Resolver()
-class StubResolver {
-  @Query(()=> String)
-  hello(){
-    return "Hello!"
-  }
-}
 const main = async () => {
   const schema = await buildSchema({
-    resolvers: [StubResolver]
+    resolvers: [AuthenticationResolver]
   });
 
   const apolloServer = new ApolloServer({ schema });
