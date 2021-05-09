@@ -10,7 +10,7 @@ const CourseInformationSchema: Schema = new Schema({
     enum: ['Fall', 'Winter', 'Summer', "Year"],
     default: 'Fall',
   },
-  year: Number
+  year: String
 });
 const GroupChatSchema: Schema = new Schema({
   name: String,

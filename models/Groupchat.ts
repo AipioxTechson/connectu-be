@@ -17,7 +17,7 @@ export class CourseInformation{
   term?: string;
 
   @Field()
-  year: Number;
+  year: String;
 }
 
 @ObjectType()

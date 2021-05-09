@@ -15,7 +15,7 @@ export class courseInformationInput {
   term: String
 
   @Field()
-  year: Number
+  year: String
 }
 
 @InputType()
