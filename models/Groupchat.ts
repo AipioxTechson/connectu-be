@@ -15,6 +15,9 @@ export class CourseInformation {
 
 @ObjectType()
 export class GroupChat {
+
+	@Field() id : String; 
+	
 	@Field() name: string;
 
 	@Field() description: string;
@@ -29,6 +32,7 @@ export class GroupChat {
 
 	@Field() status: string;
 }
+
 
 @ObjectType()
 export class GroupChatIds {
