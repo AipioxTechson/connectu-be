@@ -4,7 +4,7 @@ import mongoose, { Document, Schema, Model } from "mongoose";
 const CourseInformationSchema: Schema = new Schema({
   campus: String,
   department: String,
-  code: Number,
+  code: String,
   term: {
     type: String,
     enum: ['Fall', 'Winter', 'Summer', "Year"],
