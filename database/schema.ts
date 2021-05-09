@@ -45,8 +45,24 @@ interface IUser extends Document {
   status: string;
 }
 
+interface ICourseInformation extends Document {
+  campus: String,
+  department: String,
+  courseCode: Number,
+  term: String,
+  year: Number
+}
+interface IGroupChat extends Document {
+  name: string;
+  description: string;
+  isCommunity: Boolean;
+  links: [string];
+  courseInformation: ICourseInformation; 
+  status: string;
+}
+
 const User: Model<IUser> = mongoose.model('Users', UserSchema);
 
-const GroupChat = mongoose.model('GroupChats', GroupChatSchema);
+const GroupChat: Model<IGroupChat> = mongoose.model('GroupChats', GroupChatSchema);
 
-export { mongoose, User, GroupChat, IUser}
+export { mongoose, User, GroupChat, IUser, IGroupChat}
