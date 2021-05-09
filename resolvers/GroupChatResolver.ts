@@ -40,6 +40,14 @@ export class GroupChatResolver {
 			pageNumber: page
 		};
 	}
+
+	@Query(() => [ GroupChat ], { nullable: true })
+	async getGroupChatByStatus(@Arg('status') status: string) {
+		const GroupChat = await GroupChatModel.find({ status });
+		return GroupChat;
+	}
+
+	
 	@Query(() => GroupChat, { nullable: true })
 	async getGroupChat(@Arg('id') id: string) {
 		const GroupChat = await GroupChatModel.findOne({ _id: id });
