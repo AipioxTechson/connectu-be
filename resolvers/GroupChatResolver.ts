@@ -26,6 +26,7 @@ export class GroupChatResolver {
 	) {
 		const groupChats = await GroupChatModel.find().skip(page * this.pageSize).limit(this.pageSize);
 		const totalCount = await GroupChatModel.find().countDocuments();
+		console.log(groupChats, totalCount);
 		if (totalCount === 0) {
 			return {
 				groupChats: [],
