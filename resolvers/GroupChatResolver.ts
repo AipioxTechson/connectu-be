@@ -68,6 +68,7 @@ export class GroupChatResolver {
     if (type != undefined) {
       queryObj = { ...queryObj, isCommunity: type };
     }
+		console.log(queryObj);
     const groupChats = await GroupChatModel.find(queryObj)
       .skip(page * this.pageSize)
       .limit(this.pageSize);
