@@ -44,13 +44,15 @@ export class GroupChatResolver {
 
   @Query(() => GroupChatPaginiated, { nullable: true })
   async searchGroupChats(
-    @Arg("text") text: string,
+    @Arg("text", {nullable: true}) text?: string,
     @Arg("isCommunity", { nullable: true }) type?: Boolean,
     @Arg("page", { nullable: true }) page: number = 0
   ) {
-    const regex = new RegExp(escapeRegex(text), "gi");
     let queryObj = {};
-    queryObj = { description: regex };
+    if (text != undefined){
+      const regex = new RegExp(escapeRegex(text), "gi");
+      queryObj = {description: regex};
+    }
     if (type != undefined) {
       queryObj = { ...queryObj, isCommunity: type };
     }
