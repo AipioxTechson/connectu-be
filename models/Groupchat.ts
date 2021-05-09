@@ -1,54 +1,47 @@
-
-import { ObjectType, Field } from "type-graphql";
-
+import { ObjectType, Field } from 'type-graphql';
 
 @ObjectType()
-export class CourseInformation{
-  @Field()
-  campus?: string;
-  
-  @Field()
-  department?: string;
-  
-  @Field()
-  code?: String;
+export class CourseInformation {
+	@Field() campus?: string;
 
-  @Field()
-  term?: string;
+	@Field() department?: string;
 
-  @Field()
-  year: String;
+	@Field() code?: String;
+
+	@Field() term?: string;
+
+	@Field() year: String;
 }
 
 @ObjectType()
-export class GroupChat{
-  @Field()
-  name: string
+export class GroupChat {
+	@Field() name: string;
 
-  @Field()
-  description: string
+	@Field() description: string;
 
-  @Field(() => [String])
-  links: String[]
+	@Field(() => [ String ])
+	links: String[];
 
-  @Field()
-  isCommunity: Boolean
+	@Field() isCommunity: Boolean;
 
-  @Field(() => CourseInformation, {nullable: true})
-  courseInformation?: CourseInformation
+	@Field(() => CourseInformation, { nullable: true })
+	courseInformation?: CourseInformation;
 
-  @Field()
-  status: string
+	@Field() status: string;
+}
+
+@ObjectType()
+export class GroupChatIds {
+	@Field(() => [ String ])
+	groupChats: String[];
 }
 
 @ObjectType()
 export class GroupChatPaginiated {
-  @Field(() => [GroupChat], { nullable:'itemsAndList'})
-  groupChats: GroupChat[]
+	@Field(() => [ GroupChat ], { nullable: 'itemsAndList' })
+	groupChats: GroupChat[];
 
-  @Field()
-  totalPages: Number
+	@Field() totalPages: Number;
 
-  @Field()
-  pageNumber: Number
+	@Field() pageNumber: Number;
 }
