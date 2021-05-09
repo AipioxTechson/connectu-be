@@ -4,22 +4,19 @@ import mongoose, { Document, Schema, Model } from "mongoose";
 const CourseInformationSchema: Schema = new Schema({
   campus: String,
   department: String,
-  courseCode: String,
+  code: Number,
   term: {
     type: String,
-    enum: ['fall', 'winter', 'summer'],
-    default: 'fall',
+    enum: ['Fall', 'Winter', 'Summer', "Year"],
+    default: 'Fall',
   },
   year: Number
 });
 const GroupChatSchema: Schema = new Schema({
   name: String,
   description: String,
-  groupchatType: {
-    type: String,
-    enum : ['community','course'],
-    default: ['community']
-  },
+  isCommunity: Boolean,
+  links: [String],
   courseInformation: CourseInformationSchema,
   status: {
     type: String,
@@ -28,7 +25,7 @@ const GroupChatSchema: Schema = new Schema({
   },
 }, { toObject: { versionKey: false }});
 
-// Schema for moon
+// Schema for User
 const UserSchema: Schema = new Schema({
   email: String,
   password: String,
@@ -48,8 +45,24 @@ interface IUser extends Document {
   status: string;
 }
 
+interface ICourseInformation extends Document {
+  campus: String,
+  department: String,
+  code: Number,
+  term: String,
+  year: Number
+}
+interface IGroupChat extends Document {
+  name: string;
+  description: string;
+  isCommunity: Boolean;
+  links: [string];
+  courseInformation: ICourseInformation; 
+  status: string;
+}
+
 const User: Model<IUser> = mongoose.model('Users', UserSchema);
 
-const GroupChat = mongoose.model('GroupChats', GroupChatSchema);
+const GroupChat: Model<IGroupChat> = mongoose.model('GroupChats', GroupChatSchema);
 
-export { mongoose, User, GroupChat, IUser}
+export { mongoose, User, GroupChat, IUser, IGroupChat}
