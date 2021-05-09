@@ -40,3 +40,15 @@ export class GroupChat{
   @Field()
   status: string
 }
+
+@ObjectType()
+export class GroupChatPaginiated {
+  @Field(() => [GroupChat], { nullable:'itemsAndList'})
+  groupChats: GroupChat[]
+
+  @Field()
+  totalPages: Number
+
+  @Field()
+  pageNumber: Number
+}

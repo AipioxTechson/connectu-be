@@ -2,20 +2,32 @@ import { Resolver, Query, Arg, Mutation  } from "type-graphql";
 import { GroupChat as GroupChatModel, User as UserModel } from '../database';
 import { GroupChat } from '../models';
 import { createGroupChatInput } from '../inputs';
+import { GroupChatPaginiated } from "../models/Groupchat";
 
 
 @Resolver(GroupChat)
 export class GroupChatResolver {
+  pageSize = 8;
 
-  @Query(() => [GroupChat], {nullable: true})
-  async getGroupChats(){
-    return GroupChatModel.find();
+  @Query(() => GroupChatPaginiated)
+  async getGroupChats(@Arg("page", {nullable: true}) page: number = 0){
+    const groupChats = await GroupChatModel.find().skip(page * this.pageSize).limit(this.pageSize);
+    const totalCount = await GroupChatModel.find().countDocuments();
+    return {groupChats, totalPages: Math.ceil(totalCount / this.pageSize) - 1 , pageNumber: page};
   }
   @Query(()=> GroupChat, {nullable: true})
   async getGroupChat(@Arg("id") id: string){
     const GroupChat = await GroupChatModel.findOne({ _id: id });
     return GroupChat;
   }
+
+  @Query(()=> [GroupChat], {nullable: true})
+  async getGroupChatByStatus(@Arg("status") status:string){
+    const GroupChat = await GroupChatModel.find({ status });
+    return GroupChat;
+  }
+
+
 
   @Mutation(()=> GroupChat, {nullable: true})
   async addGroupChat(@Arg("email") email: string, @Arg("info") groupchatInfo: createGroupChatInput){

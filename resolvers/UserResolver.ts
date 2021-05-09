@@ -26,6 +26,12 @@ export class UserResolver {
     return result;
   }
 
+  @Query(() => [User], {nullable: "itemsAndList"})
+  async getUsersByStatus(@Arg("status") status: string){
+    const users = await UserModel.find({ status });
+    return users;
+  }
+
   @FieldResolver()
   async groupChatsCreated(@Root() user: UserState){
     return user.groupChatsCreated.map(async groupChatId => await GroupChatModel.findById(groupChatId))
