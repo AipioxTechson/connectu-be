@@ -48,7 +48,7 @@ interface IUser extends Document {
 interface ICourseInformation extends Document {
   campus: String,
   department: String,
-  code: Number,
+  code: String,
   term: String,
   year: Number
 }

@@ -9,7 +9,7 @@ export class courseInformationInput {
   department: string
 
   @Field()
-  code: Number
+  code: String
 
   @Field()
   term: String
