@@ -4,7 +4,7 @@ import mongoose, { Document, Schema, Model } from "mongoose";
 const CourseInformationSchema: Schema = new Schema({
   campus: String,
   department: String,
-  courseCode: Number,
+  code: Number,
   term: {
     type: String,
     enum: ['Fall', 'Winter', 'Summer', "Year"],
@@ -48,7 +48,7 @@ interface IUser extends Document {
 interface ICourseInformation extends Document {
   campus: String,
   department: String,
-  courseCode: Number,
+  code: Number,
   term: String,
   year: Number
 }

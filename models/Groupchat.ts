@@ -11,7 +11,7 @@ export class CourseInformation{
   department?: string;
   
   @Field()
-  courseCode?: Number;
+  code?: Number;
 
   @Field()
   term?: string;
