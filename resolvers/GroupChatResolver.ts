@@ -7,6 +7,10 @@ import { createGroupChatInput } from '../inputs';
 @Resolver(GroupChat)
 export class GroupChatResolver {
 
+  @Query(() => [GroupChat], {nullable: true})
+  async getGroupChats(){
+    return GroupChatModel.find();
+  }
   @Query(()=> GroupChat, {nullable: true})
   async getGroupChat(@Arg("id") id: string){
     const GroupChat = await GroupChatModel.findOne({ _id: id });
