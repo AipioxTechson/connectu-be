@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import "dotenv/config";
 import jwt, { secretType } from "express-jwt";
 
-import { AuthenticationResolver, UserResolver } from './resolvers';
+import { AuthenticationResolver, UserResolver, GroupChatResolver } from './resolvers';
  
 mongoose.connect(`${process.env.MONGO_URI}`, {
   useNewUrlParser: true,
@@ -28,7 +28,7 @@ const path = '/graphql';
 
 const main = async () => {
   const schema = await buildSchema({
-    resolvers: [AuthenticationResolver, UserResolver],
+    resolvers: [AuthenticationResolver, UserResolver, GroupChatResolver],
     authChecker:customAuthChecker,
     authMode: "null",
   });

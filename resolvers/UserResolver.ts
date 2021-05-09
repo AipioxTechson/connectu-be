@@ -1,8 +1,11 @@
-import { Resolver, Query, Arg, Mutation, Authorized  } from "type-graphql";
-import { User as UserModel } from '../database';
+import { Resolver, Query, Arg, Mutation, Authorized, FieldResolver, Root  } from "type-graphql";
+import { User as UserModel, GroupChat as GroupChatModel } from '../database';
 import { User } from '../models';
 
-@Resolver()
+export interface UserState extends Omit<User, "groupChatsCreated"> {
+  groupChatsCreated: [String]
+}
+@Resolver(User)
 export class UserResolver {
 
   @Query(()=> User, {nullable: true})
@@ -21,5 +24,10 @@ export class UserResolver {
     user.status = status;
     const result = await user.save();
     return result;
+  }
+
+  @FieldResolver()
+  async groupChatsCreated(@Root() user: UserState){
+    return user.groupChatsCreated.map(async groupChatId => await GroupChatModel.findById(groupChatId))
   }
 }

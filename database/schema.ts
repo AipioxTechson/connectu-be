@@ -4,22 +4,19 @@ import mongoose, { Document, Schema, Model } from "mongoose";
 const CourseInformationSchema: Schema = new Schema({
   campus: String,
   department: String,
-  courseCode: String,
+  courseCode: Number,
   term: {
     type: String,
-    enum: ['fall', 'winter', 'summer'],
-    default: 'fall',
+    enum: ['Fall', 'Winter', 'Summer', "Year"],
+    default: 'Fall',
   },
   year: Number
 });
 const GroupChatSchema: Schema = new Schema({
   name: String,
   description: String,
-  groupchatType: {
-    type: String,
-    enum : ['community','course'],
-    default: ['community']
-  },
+  isCommunity: Boolean,
+  links: [String],
   courseInformation: CourseInformationSchema,
   status: {
     type: String,
@@ -28,7 +25,7 @@ const GroupChatSchema: Schema = new Schema({
   },
 }, { toObject: { versionKey: false }});
 
-// Schema for moon
+// Schema for User
 const UserSchema: Schema = new Schema({
   email: String,
   password: String,

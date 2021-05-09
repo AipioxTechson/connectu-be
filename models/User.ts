@@ -1,5 +1,6 @@
 
 import { ObjectType, Field } from "type-graphql";
+import { GroupChat } from './Groupchat';
 
 @ObjectType()
 export class User{
@@ -9,5 +10,6 @@ export class User{
   @Field()
   status: string
 
-  // TODO: add groupchatsCreated
+  @Field(() => [GroupChat], {nullable: "items"})
+  groupChatsCreated: GroupChat[]
 }
