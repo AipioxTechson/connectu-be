@@ -13,7 +13,7 @@ export class GroupChatResolver {
 
 	@Query(() => GroupChatIds)
 	async getAllGroupChatIds() {
-		const groupChats = await GroupChatModel.find({ status: 'approved' });
+		const groupChats = await GroupChatModel.find();
 		return {
 			groupChats: groupChats.map((chat) => chat._id)
 		};
