@@ -3,10 +3,8 @@ import { GroupChat as GroupChatModel, User as UserModel } from '../database';
 import { GroupChat } from '../models';
 import { createGroupChatInput } from '../inputs';
 import { GroupChatIds, GroupChatPaginiated } from '../models/Groupchat';
+import { escapeRegex } from "../helpers";
 
-function escapeRegex(text: any) {
-	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-}
 @Resolver(GroupChat)
 export class GroupChatResolver {
 	pageSize = 8;

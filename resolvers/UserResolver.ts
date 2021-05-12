@@ -1,6 +1,8 @@
 import { Resolver, Query, Arg, Mutation, Authorized, FieldResolver, Root  } from "type-graphql";
 import { User as UserModel, GroupChat as GroupChatModel } from '../database';
 import { User } from '../models';
+import { escapeRegex } from "../helpers";
+
 
 export interface UserState extends Omit<User, "groupChatsCreated"> {
   groupChatsCreated: [String]
@@ -35,5 +37,18 @@ export class UserResolver {
   @FieldResolver()
   async groupChatsCreated(@Root() user: UserState){
     return user.groupChatsCreated.map(async groupChatId => await GroupChatModel.findById(groupChatId))
+  }
+
+  @Query(() => [User], { nullable: true })
+  async searchUsers(
+    @Arg("text", {nullable: true}) text?: string,
+  ) {
+    let queryObj = {};
+    if (text != undefined){
+      const regex = new RegExp(escapeRegex(text), "gi");
+      queryObj = { email: regex };
+    }
+    const users = await UserModel.find(queryObj).limit(10);
+    return users;
   }
 }
