@@ -1,15 +1,14 @@
-
 import { ObjectType, Field } from "type-graphql";
-import { GroupChat } from './Groupchat';
+import { GroupChat } from "./Groupchat";
 
 @ObjectType()
-export class User{
+export class User {
   @Field()
-  email: string
+  email: string;
 
   @Field()
-  status: string
+  status: string;
 
-  @Field(() => [GroupChat], {nullable: "items"})
-  groupChatsCreated: GroupChat[]
+  @Field(() => [GroupChat], { nullable: "items" })
+  groupChatsCreated: GroupChat[];
 }
