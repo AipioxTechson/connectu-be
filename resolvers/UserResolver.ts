@@ -26,9 +26,8 @@ export class UserResolver {
   @Mutation(() => User, { nullable: true })
   async updateUser(@Arg("email") email: string, @Arg("status") status: string) {
     const user = await UserModel.findOne({ email });
-    if (!user) {
-      return null;
-    }
+    if (!user) return null;
+    if (user.status === "admin") return null;
     user.status = status;
     const result = await user.save();
     return result;
