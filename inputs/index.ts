@@ -1,1 +1,1 @@
-export { createGroupChatInput } from './GroupChatInput';
+export { createGroupChatInput } from "./GroupChatInput";
