@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "yarn run gcp-build",
+    "prepare": "npm run gcp-build",
     "start": "node dist/index.js",
     "gcp-build": "tsc -p .",
     "build": "tsc",
