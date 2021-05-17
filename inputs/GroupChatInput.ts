@@ -1,36 +1,36 @@
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType } from "type-graphql";
 
 @InputType()
 export class courseInformationInput {
   @Field()
-  campus: string
+  campus: string;
 
   @Field()
-  department: string
+  department: string;
 
   @Field()
-  code: String
+  code: String;
 
   @Field()
-  term: String
+  term: String;
 
   @Field()
-  year: String
+  year: String;
 }
 
 @InputType()
 export class createGroupChatInput {
   @Field()
-  name: String
+  name: String;
   @Field()
-  description: String
+  description: String;
   @Field()
-  isCommunity: Boolean
+  isCommunity: Boolean;
   @Field(() => [String])
-  links: String[]
-  @Field(() => courseInformationInput, {nullable: true})
-  courseInformation?: courseInformationInput 
+  links: String[];
+  @Field(() => courseInformationInput, { nullable: true })
+  courseInformation?: courseInformationInput;
 
   @Field()
-  status: String
+  status: String;
 }

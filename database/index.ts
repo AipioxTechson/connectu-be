@@ -1,1 +1,1 @@
-export { mongoose, User, GroupChat } from './schema';
+export { mongoose, User, GroupChat } from "./schema";
