@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node index.ts",
+    "prepare": "yarn run gcp-build",
+    "start": "node dist/index.js",
     "gcp-build": "tsc -p .",
     "build": "tsc",
     "dev": "nodemon --ext ts --exec ts-node index.ts"
@@ -15,24 +16,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/mongoose": "^5.10.5",
     "apollo-server-express": "^2.24.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^9.0.0",
     "express-jwt": "^6.0.0",
     "graphql": "^15.5.0",
-    "ts-node": "^9.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.7",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
-    "@types/express-jwt": "^6.0.1",
-    "typescript": "^4.2.4",
-    "@types/bcrypt": "^3.0.1",
-    "@types/jsonwebtoken": "^8.5.1",
     "class-validator": "^0.13.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "@types/mongoose": "^5.10.5",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4",
+    "@types/express-jwt": "^6.0.1",
+    "@types/bcrypt": "^3.0.1",
+    "@types/jsonwebtoken": "^8.5.1"
   }
 }

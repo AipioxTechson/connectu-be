@@ -29,8 +29,7 @@ const path = "/graphql";
 const main = async () => {
   const schema = await buildSchema({
     resolvers: [AuthenticationResolver, UserResolver, GroupChatResolver],
-    authChecker: customAuthChecker,
-    authMode: "null",
+    authChecker: customAuthChecker
   });
 
   const apolloServer = new ApolloServer({
