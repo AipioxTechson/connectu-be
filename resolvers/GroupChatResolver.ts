@@ -94,7 +94,7 @@ export class GroupChatResolver {
 			queryObj = { ...queryObj, isCommunity: type };
 		}
 		if (Object.keys(courseInfoObj).length !== 0) {
-			queryObj.courseInformation = courseInfoObj;
+			queryObj = { ...queryObj, courseInformation: courseInfoObj };
 		}
 
 		const groupChats = await GroupChatModel.find(queryObj).skip(page * this.pageSize).limit(this.pageSize);
