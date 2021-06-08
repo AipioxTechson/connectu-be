@@ -70,20 +70,21 @@ export class GroupChatResolver {
 		page: number = 0
 	) {
 		let queryObj = {};
+		let courseInfoObj = {};
 		if (campus != undefined) {
-			queryObj = { ...queryObj, courseInformation: { campus } };
+			courseInfoObj = { ...courseInfoObj, campus };
 		}
 		if (department != undefined) {
-			queryObj = { ...queryObj, courseInformation: { department } };
+			courseInfoObj = { ...courseInfoObj, department };
 		}
 		if (code != undefined) {
-			queryObj = { ...queryObj, courseInformation: { code } };
+			courseInfoObj = { ...courseInfoObj, code };
 		}
 		if (term != undefined) {
-			queryObj = { ...queryObj, courseInformation: { term } };
+			courseInfoObj = { ...courseInfoObj, term };
 		}
 		if (year != undefined) {
-			queryObj = { ...queryObj, courseInformation: { year } };
+			courseInfoObj = { ...courseInfoObj, year };
 		}
 		if (text != undefined) {
 			const regex = new RegExp(escapeRegex(text), 'gi');
@@ -92,6 +93,10 @@ export class GroupChatResolver {
 		if (type != undefined) {
 			queryObj = { ...queryObj, isCommunity: type };
 		}
+		if (Object.keys(courseInfoObj).length !== 0) {
+			queryObj.courseInformation = courseInfoObj;
+		}
+
 		const groupChats = await GroupChatModel.find(queryObj).skip(page * this.pageSize).limit(this.pageSize);
 		const totalCount = await GroupChatModel.find(queryObj).countDocuments();
 		if (totalCount === 0) {
