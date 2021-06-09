@@ -70,19 +70,20 @@ export class GroupChatResolver {
 		page: number = 0
 	) {
 		let queryObj = {};
-		if (campus != undefined) {
+		if (campus != undefined && campus !== "") {
+			console.log(campus);
 			queryObj = { ...queryObj, 'courseInformation.campus': campus };
 		}
-		if (department != undefined) {
+		if (department != undefined && department !== "") {
 			queryObj = { ...queryObj, 'courseInformation.department': department };
 		}
-		if (code != undefined) {
+		if (code != undefined && code !== "") {
 			queryObj = { ...queryObj, 'courseInformation.code': code };
 		}
-		if (term != undefined) {
+		if (term != undefined && term !== "") {
 			queryObj = { ...queryObj, 'courseInformation.term': term };
 		}
-		if (year != undefined) {
+		if (year != undefined && year !== "") {
 			queryObj = { ...queryObj, 'courseInformation.year': year };
 		}
 		if (text != undefined) {
@@ -94,6 +95,7 @@ export class GroupChatResolver {
 		}
 		const groupChats = await GroupChatModel.find(queryObj).skip(page * this.pageSize).limit(this.pageSize);
 		const totalCount = await GroupChatModel.find(queryObj).countDocuments();
+		console.log(groupChats, totalCount);
 		if (totalCount === 0) {
 			return {
 				groupChats: [],
